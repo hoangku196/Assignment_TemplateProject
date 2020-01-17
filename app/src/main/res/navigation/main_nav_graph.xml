@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/begin">
+
+    <fragment
+        android:id="@+id/begin"
+        android:name="com.example.myapplication.fragment.Begin"
+        android:label="fragment_begin"
+        tools:layout="@layout/fragment_begin" >
+        <action
+            android:id="@+id/action_begin_to_login"
+            app:destination="@id/login" />
+    </fragment>
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.myapplication.fragment.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_home3"
+            app:destination="@id/home3" />
+    </fragment>
+    <fragment
+        android:id="@+id/home3"
+        android:name="com.example.myapplication.fragment.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home3_to_user"
+            app:destination="@id/user" />
+        <action
+            android:id="@+id/action_home3_to_bookType"
+            app:destination="@id/bookType" />
+        <action
+            android:id="@+id/action_home3_to_book"
+            app:destination="@id/book" />
+        <action
+            android:id="@+id/action_home3_to_bill"
+            app:destination="@id/bill" />
+        <action
+            android:id="@+id/action_home3_to_statistic"
+            app:destination="@id/statistic" />
+        <action
+            android:id="@+id/action_home3_to_bestSelling"
+            app:destination="@id/bestSelling" />
+    </fragment>
+    <fragment
+        android:id="@+id/user"
+        android:name="com.example.myapplication.fragment.User"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_user_to_listUser"
+            app:destination="@id/listUser" />
+    </fragment>
+    <fragment
+        android:id="@+id/listUser"
+        android:name="com.example.myapplication.fragment.ListUser"
+        android:label="fragment_list_user"
+        tools:layout="@layout/fragment_list_user" />
+    <fragment
+        android:id="@+id/bookType"
+        android:name="com.example.myapplication.fragment.BookType"
+        android:label="fragment_book_type"
+        tools:layout="@layout/fragment_book_type" >
+        <action
+            android:id="@+id/action_bookType_to_listBookType"
+            app:destination="@id/listBookType" />
+    </fragment>
+    <fragment
+        android:id="@+id/listBookType"
+        android:name="com.example.myapplication.fragment.ListBookType"
+        android:label="fragment_list_book_type"
+        tools:layout="@layout/fragment_list_book_type" />
+    <fragment
+        android:id="@+id/book"
+        android:name="com.example.myapplication.fragment.Book"
+        android:label="fragment_book"
+        tools:layout="@layout/fragment_book" >
+        <action
+            android:id="@+id/action_book_to_listBook"
+            app:destination="@id/listBook" />
+    </fragment>
+    <fragment
+        android:id="@+id/listBook"
+        android:name="com.example.myapplication.fragment.ListBook"
+        android:label="fragment_list_book"
+        tools:layout="@layout/fragment_list_book" />
+    <fragment
+        android:id="@+id/bill"
+        android:name="com.example.myapplication.fragment.Bill"
+        android:label="fragment_bill"
+        tools:layout="@layout/fragment_bill" >
+        <action
+            android:id="@+id/action_bill_to_listBill"
+            app:destination="@id/listBill" />
+        <action
+            android:id="@+id/action_bill_to_billDetail"
+            app:destination="@id/billDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/listBill"
+        android:name="com.example.myapplication.fragment.ListBill"
+        android:label="fragment_list_bill"
+        tools:layout="@layout/fragment_list_bill" />
+    <fragment
+        android:id="@+id/statistic"
+        android:name="com.example.myapplication.fragment.Statistic"
+        android:label="fragment_statistic"
+        tools:layout="@layout/fragment_statistic" />
+    <fragment
+        android:id="@+id/bestSelling"
+        android:name="com.example.myapplication.fragment.BestSelling"
+        android:label="fragment_best_selling"
+        tools:layout="@layout/fragment_best_selling" />
+    <fragment
+        android:id="@+id/billDetail"
+        android:name="com.example.myapplication.fragment.BillDetail"
+        android:label="fragment_bill_detail"
+        tools:layout="@layout/fragment_bill_detail" />
+</navigation>
