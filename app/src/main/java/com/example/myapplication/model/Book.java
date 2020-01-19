@@ -1,5 +1,7 @@
 package com.example.myapplication.model;
 
+import androidx.annotation.NonNull;
+
 public class Book {
     private String id;
     private BookType bookType;
@@ -59,5 +61,19 @@ public class Book {
 
     public void setPublishingCompany(String publishingCompany) {
         this.publishingCompany = publishingCompany;
+    }
+
+    public float getPriceBook() {
+        return priceBook;
+    }
+
+    public void setPriceBook(float priceBook) {
+        this.priceBook = priceBook;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return id + "-" + name;
     }
 }

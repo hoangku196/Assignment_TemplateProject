@@ -120,5 +120,14 @@
         android:id="@+id/billDetail"
         android:name="com.example.myapplication.fragment.BillDetail"
         android:label="fragment_bill_detail"
-        tools:layout="@layout/fragment_bill_detail" />
+        tools:layout="@layout/fragment_bill_detail" >
+        <action
+            android:id="@+id/action_billDetail_to_listBillDetails"
+            app:destination="@id/listBillDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/listBillDetails"
+        android:name="com.example.myapplication.fragment.ListBillDetails"
+        android:label="fragment_list_bill_details"
+        tools:layout="@layout/fragment_list_bill_details" />
 </navigation>
