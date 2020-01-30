@@ -21,7 +21,7 @@ public class BookDAO {
             "NAME TEXT, " +
             "AUTHOR TEXT, " +
             "PUBLISHINGCOMPANY TEXT, " +
-            "PRICEBOOK DOUBLE)";//TODO
+            "PRICEBOOK REAL)";
     public static final String TABLE_NAME = "BOOK";
     private final String TAG = this.getClass().getSimpleName();
 
@@ -49,6 +49,7 @@ public class BookDAO {
         return true;
     }
 
+    //TODO
     public List<Book> getAllBook() {
         List<Book> books = new ArrayList<>();
 

@@ -69,25 +69,25 @@ public class Bill extends Fragment {
                 datePickerDialog.show();
             }
         });
-
+//TODO:
         btnAddBill = view.findViewById(R.id.btnAddBill);
-        btnAddBill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String id = edIdBill.getText().toString();
-                String date = edDateBill.getText().toString();
-                Bundle bundle = new Bundle();
-                bundle.putString("key_id", id);
-
-                if (billDAO.insertBill(new com.example.myapplication.model.Bill(id, date))) {
-                    Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(v).navigate(R.id.action_bill_to_billDetail, bundle);
-                } else
-                    Toast.makeText(getActivity(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+//        btnAddBill.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                String id = edIdBill.getText().toString();
+//                String date = edDateBill.getText().toString();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("key_id", id);
+//
+//                if (billDAO.insertBill(new com.example.myapplication.model.Bill(id, date))) {
+//                    Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+//                    Navigation.findNavController(v).navigate(R.id.action_bill_to_billDetail, bundle);
+//                } else
+//                    Toast.makeText(getActivity(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
 
         btnCancelBill = view.findViewById(R.id.btnCancelBill);
 

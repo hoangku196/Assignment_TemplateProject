@@ -24,7 +24,6 @@ public class UserAdapter extends BaseAdapter implements View.OnClickListener {
     public UserAdapter(Context context, List<User> users) {
         this.users = users;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ;
     }
 
     @Override

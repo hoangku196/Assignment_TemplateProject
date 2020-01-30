@@ -97,15 +97,16 @@
         <action
             android:id="@+id/action_bill_to_listBill"
             app:destination="@id/listBill" />
-        <action
-            android:id="@+id/action_bill_to_billDetail"
-            app:destination="@id/billDetail" />
     </fragment>
     <fragment
         android:id="@+id/listBill"
         android:name="com.example.myapplication.fragment.ListBill"
         android:label="fragment_list_bill"
-        tools:layout="@layout/fragment_list_bill" />
+        tools:layout="@layout/fragment_list_bill" >
+        <action
+            android:id="@+id/action_listBill_to_billDetail"
+            app:destination="@id/billDetail" />
+    </fragment>
     <fragment
         android:id="@+id/statistic"
         android:name="com.example.myapplication.fragment.Statistic"
