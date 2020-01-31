@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:text="ID:"
+        android:text="ID Hóa đơn:"
         android:textSize="25sp" />
 
     <Spinner
@@ -65,5 +65,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Show List Bill Details" />
+
+    <ListView
+        android:id="@+id/lvBillDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

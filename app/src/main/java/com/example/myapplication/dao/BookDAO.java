@@ -60,22 +60,28 @@ public class BookDAO {
             String id = cursor.getString(0);
             String idBookType = cursor.getString(1);
             String nameBookType = null;
+            String describeBookType = null;
+            String locationBookType = null;
 
             //TODO
-            Cursor cursorGetNameBookType = db.rawQuery("SELECT NAME FROM " + BookTypeDAO.TABLE_NAME + " WHERE ID=?", new String[]{idBookType});
-            cursorGetNameBookType.moveToFirst();
-            while (!cursorGetNameBookType.isAfterLast()) {
-                nameBookType = cursorGetNameBookType.getString(0);
-                cursor.moveToNext();
+            Cursor cursorGetBookType = db.rawQuery("SELECT NAME, DESCRIBE, LOCATION FROM " + BookTypeDAO.TABLE_NAME + " WHERE ID=?", new String[]{idBookType});
+            cursorGetBookType.moveToFirst();
+            while (!cursorGetBookType.isAfterLast()) {
+                nameBookType = cursorGetBookType.getString(0);
+                describeBookType = cursorGetBookType.getString(1);
+                locationBookType = cursorGetBookType.getString(2);
+
+                cursorGetBookType.moveToNext();
             }
 
             String name = cursor.getString(2);
             String author = cursor.getString(3);
             String publishingCompany = cursor.getString(4);
             float priceBook = (float) cursor.getDouble(5);
-            Book book = new Book(id, new BookType(idBookType, nameBookType), name, author, publishingCompany, priceBook);
+            Book book = new Book(id, new BookType(idBookType, nameBookType, describeBookType, locationBookType), name, author, publishingCompany, priceBook);
             books.add(book);
-            cursorGetNameBookType.close();
+
+            cursorGetBookType.close();
             cursor.moveToNext();
         }
 

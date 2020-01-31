@@ -8,8 +8,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.adapter.BookTypeAdapter;
+import com.example.myapplication.dao.BookTypeDAO;
+import com.example.myapplication.model.BookType;
+
+import java.util.List;
 
 
 /**
@@ -17,6 +23,10 @@ import com.example.myapplication.R;
  */
 public class ListBookType extends Fragment {
 
+    private List<BookType> bookTypes;
+    private BookTypeAdapter bookTypeAdapter;
+    private BookTypeDAO bookTypeDAO;
+    private ListView lvBookType;
 
     public ListBookType() {
         // Required empty public constructor
@@ -29,6 +39,12 @@ public class ListBookType extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_list_book_type, container, false);
 
+        bookTypeDAO = new BookTypeDAO(getActivity());
+
+        bookTypes = bookTypeDAO.getAllBookType();
+        bookTypeAdapter = new BookTypeAdapter(bookTypes, getActivity());
+        lvBookType = view.findViewById(R.id.lvBookType);
+        lvBookType.setAdapter(bookTypeAdapter);
 
         return view;
     }

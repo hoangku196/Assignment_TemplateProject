@@ -18,8 +18,8 @@ public class BillDetailsDAO {
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
     public static final String SQL_BILL_DETAILS = "CREATE TABLE BILLDETAILS(ID TEXT PRIMARY KEY, " +
-            "IDBILL TEXT, " +
-            "IDBOOK TEXT, " +
+            "IDBILL TEXT PRIMARY KEY, " +
+            "IDBOOK TEXT PRIMARY KEY, " +
             "AMOUNT INTEGER) ";
     public static final String TABLE_NAME = "BILLDETAILS";
     private final String TAG = this.getClass().getSimpleName();
