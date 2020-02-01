@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import androidx.databinding.DataBindingUtil;
 
 import com.example.myapplication.R;
 import com.example.myapplication.dao.BookDAO;
 import com.example.myapplication.databinding.AdapterListBillDetailBinding;
+import com.example.myapplication.fragment.BillDetail;
 import com.example.myapplication.model.BillDetails;
 
 import java.util.List;
@@ -19,8 +21,6 @@ public class BillDetailAdapter extends BaseAdapter {
 
     private List<BillDetails> billDetails;
     private LayoutInflater inflater;
-
-    private BookDAO bookDAO;
 
     private AdapterListBillDetailBinding adapterListBillDetailBinding;
 
@@ -48,18 +48,25 @@ public class BillDetailAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             adapterListBillDetailBinding = DataBindingUtil.inflate(inflater, R.layout.adapter_list_bill_detail, parent, false);
+            ImageView viewDeleteBillDetail = adapterListBillDetailBinding.getRoot().findViewById(R.id.viewDeleteBillDetail);
 
-            BillDetails billDetails = (BillDetails) getItem(position);
+            final BillDetails billDetails = (BillDetails) getItem(position);
 
             Detail detail = new Detail(billDetails.getBook().getId(), billDetails.getAmount(), billDetails.getBook().getPriceBook());
             adapterListBillDetailBinding.setDetail(detail);
+            viewDeleteBillDetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    BillDetail.billDetailsPreview.remove(billDetails);
+                }
+            });
         }
 
-        return null;
+        return adapterListBillDetailBinding.getRoot();
     }
 
     //TODO LÀM NỐT NHA
-    private class Detail {
+    public class Detail {
         private String idBook;
         private int amount;
         private double price;
@@ -73,19 +80,19 @@ public class BillDetailAdapter extends BaseAdapter {
         }
 
         public String getIdBook() {
-            return idBook;
+            return "Mã sách :" + idBook;
         }
 
-        public int getAmount() {
-            return amount;
+        public String getAmount() {
+            return "Số lượng :" + amount;
         }
 
-        public double getPrice() {
-            return price;
+        public String getPrice() {
+            return "Giá bìa :" + price;
         }
 
-        public double getTotal() {
-            return total;
+        public String getTotal() {
+            return "Thành tiền :" + total;
         }
     }
 }

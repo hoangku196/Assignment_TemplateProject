@@ -19,10 +19,10 @@
         android:hint="Nhập mã hóa đơn chi tiết" />
 
     <TextView
+        android:id="@+id/tvIdBill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:text="ID Hóa đơn:"
         android:textSize="25sp" />
 
     <Spinner
@@ -52,22 +52,16 @@
             android:text="Add" />
 
         <Button
-            android:id="@+id/btnCancelBillDetail"
+            android:id="@+id/btnPayBillDetail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="Pay" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnShowBillDetail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Show List Bill Details" />
-
     <ListView
-        android:id="@+id/lvBillDetail"
+        android:id="@+id/lvBillDetailPreview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

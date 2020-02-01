@@ -49,7 +49,22 @@ public class BookDAO {
         return true;
     }
 
-    //TODO
+    public int getAmountBookById(String idBook) {
+
+        Cursor cursor = db.rawQuery("SELECT AMOUNT FROM " + TABLE_NAME + " WHERE ID=?", new String[]{idBook});
+        int amount = 0;
+        
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            amount = cursor.getInt(0);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return amount;
+    }
+
     public List<Book> getAllBook() {
         List<Book> books = new ArrayList<>();
 

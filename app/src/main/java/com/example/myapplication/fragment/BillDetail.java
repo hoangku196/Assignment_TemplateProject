@@ -12,15 +12,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.adapter.BillDetailAdapter;
 import com.example.myapplication.dao.BillDetailsDAO;
 import com.example.myapplication.dao.BookDAO;
 import com.example.myapplication.model.Bill;
 import com.example.myapplication.model.BillDetails;
 import com.example.myapplication.model.Book;
+
+import java.util.List;
 
 
 /**
@@ -30,7 +35,11 @@ public class BillDetail extends Fragment {
 
     private EditText edIdBillDetail, edAmountBillDetail;
     private Spinner spnIdBook;
-    private Button btnAddBillDetail, btnCancelBillDetail, btnShowBillDetail;
+    private Button btnAddBillDetail, btnPayBillDetail;
+    private ListView lvBillDetailPreview;
+    private TextView tvIdBill;
+
+    public static List<BillDetails> billDetailsPreview;
 
     //DAO
     private BookDAO bookDAO;
@@ -48,16 +57,19 @@ public class BillDetail extends Fragment {
         bookDAO = new BookDAO(getActivity());
         billDetailsDAO = new BillDetailsDAO(getActivity());
 
+        tvIdBill = view.findViewById(R.id.tvIdBill);
+        tvIdBill.setText("Mã Hóa đơn :" + getArguments().getString("key_id"));
         edIdBillDetail = view.findViewById(R.id.edIdBillDetail);
         edAmountBillDetail = view.findViewById(R.id.edAmountBillDetail);
+        lvBillDetailPreview = view.findViewById(R.id.lvBillDetailPreview);
 
         ArrayAdapter<Book> bookArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
         bookArrayAdapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spnIdBook = view.findViewById(R.id.spnIdBook);
         spnIdBook.setAdapter(bookArrayAdapter);
 
-        btnAddBillDetail = view.findViewById(R.id.btnAddBillDetail);
-        btnAddBillDetail.setOnClickListener(new View.OnClickListener() {
+        btnPayBillDetail = view.findViewById(R.id.btnPayBillDetail);
+        btnPayBillDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String id = edIdBillDetail.getText().toString();
@@ -72,13 +84,22 @@ public class BillDetail extends Fragment {
             }
         });
 
-        btnCancelBillDetail = view.findViewById(R.id.btnCancelBillDetail);
-
-        btnShowBillDetail = view.findViewById(R.id.btnShowBillDetail);
-        btnShowBillDetail.setOnClickListener(new View.OnClickListener() {
+        btnAddBillDetail = view.findViewById(R.id.btnAddBillDetail);
+        btnAddBillDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_billDetail_to_listBillDetails);
+                String id = edIdBillDetail.getText().toString();
+                int amount = Integer.parseInt(edAmountBillDetail.getText().toString());
+
+                com.example.myapplication.model.Book book = (Book) spnIdBook.getSelectedItem();
+                String idBill = getArguments().getString("key_id");
+                if (amount <= bookDAO.getAmountBookById(book.getId()))
+                    billDetailsPreview.add(new BillDetails(id, new Bill(idBill), book, amount));
+                else
+                    Toast.makeText(getActivity(), "Số lượng sách mua lớn hơn số lượng sách hiện có", Toast.LENGTH_SHORT).show();
+
+                BillDetailAdapter billDetailAdapter = new BillDetailAdapter(billDetailsPreview, getActivity());
+                lvBillDetailPreview.setAdapter(billDetailAdapter);
             }
         });
 
