@@ -60,7 +60,14 @@
         android:id="@+id/listUser"
         android:name="com.example.myapplication.fragment.ListUser"
         android:label="fragment_list_user"
-        tools:layout="@layout/fragment_list_user" />
+        tools:layout="@layout/fragment_list_user" >
+        <action
+            android:id="@+id/action_listUser_to_changePassword2"
+            app:destination="@id/changePassword2" />
+        <action
+            android:id="@+id/action_listUser_to_login"
+            app:destination="@id/login" />
+    </fragment>
     <fragment
         android:id="@+id/bookType"
         android:name="com.example.myapplication.fragment.BookType"
@@ -131,4 +138,9 @@
         android:name="com.example.myapplication.fragment.ListBillDetails"
         android:label="fragment_list_bill_details"
         tools:layout="@layout/fragment_list_bill_details" />
+    <fragment
+        android:id="@+id/changePassword2"
+        android:name="com.example.myapplication.fragment.ChangePassword"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
 </navigation>

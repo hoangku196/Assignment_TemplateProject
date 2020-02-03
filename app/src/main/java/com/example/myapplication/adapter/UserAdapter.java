@@ -10,14 +10,16 @@ import android.widget.ImageView;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.myapplication.R;
+import com.example.myapplication.dao.UserDAO;
 import com.example.myapplication.databinding.AdapterListUserBinding;
 import com.example.myapplication.model.User;
 
 import java.util.List;
 
-public class UserAdapter extends BaseAdapter implements View.OnClickListener {
+public class UserAdapter extends BaseAdapter {
     private List<User> users;
     private LayoutInflater inflater;
+    private UserDAO userDAO;
 
     private AdapterListUserBinding adapterListUserBinding;
 
@@ -44,8 +46,10 @@ public class UserAdapter extends BaseAdapter implements View.OnClickListener {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
+            userDAO = new UserDAO(parent.getContext());
+
             adapterListUserBinding = DataBindingUtil.inflate(inflater, R.layout.adapter_list_user, parent, false);
-            User user = (User) getItem(position);
+            final User user = (User) getItem(position);
             adapterListUserBinding.setUser(user);
             UserImage userImage;
             if (position % 3 == 0)
@@ -56,6 +60,13 @@ public class UserAdapter extends BaseAdapter implements View.OnClickListener {
                 userImage = new UserImage(R.drawable.emthree);
             ImageView viewAvatarUser = adapterListUserBinding.getRoot().findViewById(R.id.viewAvatarUser);
             viewAvatarUser.setImageResource(userImage.getImage());
+            ImageView viewDeleteUser = adapterListUserBinding.getRoot().findViewById(R.id.viewDeleteUser);
+            viewDeleteUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    userDAO.deleteUser(user);
+                }
+            });
         }
 
         return adapterListUserBinding.getRoot();
@@ -64,14 +75,6 @@ public class UserAdapter extends BaseAdapter implements View.OnClickListener {
     public void refeshDataList(List<User> users) {
         this.users = users;
         notifyDataSetChanged();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.deleteUser:
-                break;
-        }
     }
 
     public class UserImage {

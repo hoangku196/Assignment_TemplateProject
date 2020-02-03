@@ -15,9 +15,9 @@ import java.util.List;
 public class UserDAO {
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
-    public static final String SQL_USER = "CREATE TABLE USER(USERNAME TEXT PRIMARY KEY, " +
-            "USERPASS TEXT, " +
-            "PHONE TEXT, " +
+    public static final String SQL_USER = "CREATE TABLE USER(USERNAME TEXT PRIMARY KEY NOT NULL, " +
+            "USERPASS TEXT NOT NULL, " +
+            "PHONE TEXT NOT NULL, " +
             "FULLNAME TEXT)";
     public static final String TABLE_NAME = "USER";
     private final String TAG = this.getClass().getSimpleName();
@@ -65,6 +65,21 @@ public class UserDAO {
         return users;
     }
 
+    public boolean updatePassword(User user, String newPassword) {
+        ContentValues values = new ContentValues();
+        values.put("userName", user.getUserName());
+        values.put("userPass", newPassword);
+
+        try {
+            if (db.update(TABLE_NAME, values, "USERNAME=? AND USERPASS=?", new String[]{user.getUserName(), user.getUserPass()}) <= 0)
+                return false;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+
+        return true;
+    }
+
     public boolean updateUser(User user) {
         ContentValues values = new ContentValues();
         values.put("userName", user.getUserName());
@@ -73,7 +88,7 @@ public class UserDAO {
         values.put("fullName", user.getFullName());
 
         try {
-            if (db.update(TABLE_NAME, values, "USERNAME=?", new String[]{user.getUserName()}) <= 0)
+            if (db.update(TABLE_NAME, values, "USERNAME=? AND USERPASS=?", new String[]{user.getUserName(), user.getUserPass()}) <= 0)
                 return false;
         } catch (Exception e) {
             Log.e(TAG, e.toString());
@@ -95,7 +110,10 @@ public class UserDAO {
         while (!cursor.isAfterLast()) {
             checkUserName = cursor.getString(0);
             checkUserPass = cursor.getString(1);
+            cursor.moveToNext();
         }
+
+        cursor.close();
 
         return checkUserName != null && checkUserPass != null;
     }

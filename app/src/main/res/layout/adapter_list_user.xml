@@ -48,7 +48,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <ImageView
-            android:id="@+id/deleteUser"
+            android:id="@+id/viewDeleteUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/viewAvatarUser"

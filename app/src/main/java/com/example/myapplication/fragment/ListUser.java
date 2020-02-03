@@ -3,9 +3,14 @@ package com.example.myapplication.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -60,5 +65,29 @@ public class ListUser extends Fragment {
         users.clear();
         users = userDAO.getAllUser();
         userAdapter.refeshDataList(users);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.list_user_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.action_add_new_user:
+                getActivity().onBackPressed();
+                return true;
+            case R.id.action_change_password_user:
+                NavHostFragment.findNavController(this).navigate(R.id.action_listUser_to_changePassword2);
+                return true;
+            case R.id.action_log_out:
+                NavHostFragment.findNavController(this).navigate(R.id.action_listUser_to_login);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

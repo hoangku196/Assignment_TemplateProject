@@ -21,16 +21,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Tên Đăng Nhập"
-        android:inputType="textPersonName"
-        android:text="admin" />
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/edPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Mật khẩu"
-        android:inputType="textPassword"
-        android:text="admin" />
+        android:inputType="textPassword" />
 
     <CheckBox
         android:id="@+id/chkRememberPass"
@@ -44,11 +42,11 @@
         android:orientation="horizontal">
 
         <Button
-            android:onClick="check"
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="check"
             android:text="Đăng nhập" />
 
         <Button

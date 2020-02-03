@@ -76,7 +76,7 @@
             app:layout_constraintGuide_percent="0.81" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/viewDeleteBookType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

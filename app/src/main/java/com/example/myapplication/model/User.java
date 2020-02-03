@@ -13,6 +13,11 @@ public class User {
         this.fullName = fullName;
     }
 
+    public User(String userName, String userPass) {
+        this.userName = userName;
+        this.userPass = userPass;
+    }
+
     public String getUserName() {
         return userName;
     }

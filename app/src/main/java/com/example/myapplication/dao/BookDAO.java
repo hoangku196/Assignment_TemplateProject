@@ -21,7 +21,8 @@ public class BookDAO {
             "NAME TEXT, " +
             "AUTHOR TEXT, " +
             "PUBLISHINGCOMPANY TEXT, " +
-            "PRICEBOOK REAL)";
+            "PRICEBOOK FLOAT, " +
+            "AMOUNT INTEGER)";
     public static final String TABLE_NAME = "BOOK";
     private final String TAG = this.getClass().getSimpleName();
 
@@ -38,6 +39,7 @@ public class BookDAO {
         values.put("AUTHOR", book.getAuthor());
         values.put("PUBLISHINGCOMPANY", book.getPublishingCompany());
         values.put("PRICEBOOK", book.getPublishingCompany());
+        values.put("AMOUNT", book.getAmount());
         try {
             if (db.insert(TABLE_NAME, null, values) == -1) {
                 return false;
@@ -53,7 +55,7 @@ public class BookDAO {
 
         Cursor cursor = db.rawQuery("SELECT AMOUNT FROM " + TABLE_NAME + " WHERE ID=?", new String[]{idBook});
         int amount = 0;
-        
+
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             amount = cursor.getInt(0);
@@ -76,7 +78,7 @@ public class BookDAO {
             String idBookType = cursor.getString(1);
             String nameBookType = null;
             String describeBookType = null;
-            String locationBookType = null;
+            int locationBookType = 0;
 
             //TODO
             Cursor cursorGetBookType = db.rawQuery("SELECT NAME, DESCRIBE, LOCATION FROM " + BookTypeDAO.TABLE_NAME + " WHERE ID=?", new String[]{idBookType});
@@ -84,7 +86,7 @@ public class BookDAO {
             while (!cursorGetBookType.isAfterLast()) {
                 nameBookType = cursorGetBookType.getString(0);
                 describeBookType = cursorGetBookType.getString(1);
-                locationBookType = cursorGetBookType.getString(2);
+                locationBookType = cursorGetBookType.getInt(2);
 
                 cursorGetBookType.moveToNext();
             }
@@ -92,8 +94,9 @@ public class BookDAO {
             String name = cursor.getString(2);
             String author = cursor.getString(3);
             String publishingCompany = cursor.getString(4);
-            float priceBook = (float) cursor.getDouble(5);
-            Book book = new Book(id, new BookType(idBookType, nameBookType, describeBookType, locationBookType), name, author, publishingCompany, priceBook);
+            float priceBook = cursor.getFloat(5);
+            int amount = cursor.getInt(6);
+            Book book = new Book(id, new BookType(idBookType, nameBookType, describeBookType, locationBookType), name, author, publishingCompany, priceBook, amount);
             books.add(book);
 
             cursorGetBookType.close();
@@ -108,10 +111,13 @@ public class BookDAO {
     public boolean updateBook(Book book) {
         ContentValues values = new ContentValues();
         values.put("ID", book.getId());
+        values.put("ID", book.getId());
         values.put("IDBOOKTYPE", book.getBookType().getId());
         values.put("NAME", book.getName());
         values.put("AUTHOR", book.getAuthor());
         values.put("PUBLISHINGCOMPANY", book.getPublishingCompany());
+        values.put("PRICEBOOK", book.getPublishingCompany());
+        values.put("AMOUNT", book.getAmount());
 
         try {
             if (db.update(TABLE_NAME, values, "ID=?", new String[]{book.getId()}) <= 0)

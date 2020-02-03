@@ -3,10 +3,15 @@ package com.example.myapplication.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,7 +29,7 @@ public class User extends Fragment {
 
     private EditText edUserName, edPassword, edRePassword, edPhone, edFullName;
 
-    private Button btnAddUser, btnShowUser;
+    private Button btnAddUser, btnShowUser, btnCancelUser;
 
     private UserDAO userDAO;
 
@@ -37,6 +42,7 @@ public class User extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
+        getActivity().setTitle("Người dùng");
 
         userDAO = new UserDAO(getActivity());
 
@@ -55,7 +61,7 @@ public class User extends Fragment {
                 String rePassword = edRePassword.getText().toString();
                 String phone = edPhone.getText().toString();
                 String fullName = edFullName.getText().toString();
-                if (userName.isEmpty() || password.isEmpty() || rePassword.isEmpty() || phone.isEmpty() || fullName.isEmpty()) {
+                if (userName.isEmpty() || password.isEmpty() || rePassword.isEmpty() || phone.isEmpty()) {
                     Toast.makeText(getActivity(), "Điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else if (!password.equalsIgnoreCase(rePassword)) {
                     Toast.makeText(getActivity(), "Hai mật khẩu không trùng nhau", Toast.LENGTH_SHORT).show();
@@ -65,6 +71,17 @@ public class User extends Fragment {
                     else
                         Toast.makeText(getActivity(), "Thêm thất bại kiểm tra lại UserName", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnCancelUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edUserName.setText("");
+                edPassword.setText("");
+                edRePassword.setText("");
+                edPhone.setText("");
+                edFullName.setText("");
             }
         });
 

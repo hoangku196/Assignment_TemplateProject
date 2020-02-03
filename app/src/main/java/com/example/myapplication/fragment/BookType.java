@@ -37,6 +37,7 @@ public class BookType extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book_type, container, false);
+        getActivity().setTitle("Thể loại sách");
 
         bookTypeDAO = new BookTypeDAO(getActivity());
 
@@ -49,15 +50,32 @@ public class BookType extends Fragment {
         btnAddBookType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO btnAddBookType
-                String id = edIdBookType.getText().toString();
-                String name = edNameBookType.getText().toString();
-                String location = edLocationBookType.getText().toString();
-                String describe = edDescribeBookType.getText().toString();
-                if (bookTypeDAO.insertBookType(new com.example.myapplication.model.BookType(id, name, describe, location)))
-                    Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getActivity(), "Thêm thất bại kiểm tra lại mã loại sách", Toast.LENGTH_SHORT).show();
+                try {
+                    String id = edIdBookType.getText().toString();
+                    String name = edNameBookType.getText().toString();
+                    int location = Integer.parseInt(edLocationBookType.getText().toString());
+                    String describe = edDescribeBookType.getText().toString();
+                    if (!id.isEmpty() || !name.isEmpty()) {
+                        if (bookTypeDAO.insertBookType(new com.example.myapplication.model.BookType(id, name, describe, location)))
+                            Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(getActivity(), "Thêm thất bại kiểm tra lại mã loại sách", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(getActivity(), "Phải nhập id và tên loại sách", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "Lỗi :" + e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnCancelBookType = view.findViewById(R.id.btnCancelBookType);
+        btnCancelBookType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edIdBookType.setText("");
+                edNameBookType.setText("");
+                edLocationBookType.setText("");
+                edDescribeBookType.setText("");
             }
         });
 

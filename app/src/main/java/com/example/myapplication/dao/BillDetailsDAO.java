@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.myapplication.database.DatabaseHelper;
+import com.example.myapplication.fragment.BillDetail;
 import com.example.myapplication.model.Bill;
 import com.example.myapplication.model.BillDetails;
 import com.example.myapplication.model.Book;
@@ -18,8 +19,8 @@ public class BillDetailsDAO {
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
     public static final String SQL_BILL_DETAILS = "CREATE TABLE BILLDETAILS(ID TEXT PRIMARY KEY, " +
-            "IDBILL TEXT PRIMARY KEY, " +
-            "IDBOOK TEXT PRIMARY KEY, " +
+            "IDBILL TEXT , " +
+            "IDBOOK TEXT , " +
             "AMOUNT INTEGER) ";
     public static final String TABLE_NAME = "BILLDETAILS";
     private final String TAG = this.getClass().getSimpleName();
@@ -44,6 +45,23 @@ public class BillDetailsDAO {
         }
 
         return true;
+    }
+
+    public List<Book> getTopSellingBook(int top) {
+        List<Book> books = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery("SELECT TOP " + top + " FROM ( SELECT SUM(AMOUNT) FROM " + TABLE_NAME + " )", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String idBook = cursor.getString(2);
+            int amount = cursor.getInt(3);
+            books.add(new Book(idBook, amount));
+
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return books;
     }
 
     public List<BillDetails> getAllBillDetails() {

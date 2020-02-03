@@ -25,7 +25,7 @@ import com.example.myapplication.dao.BookTypeDAO;
  */
 public class Book extends Fragment {
 
-    private EditText edIdBook, edNameBook, edAuthorBook, edPublishingCompanyBook, edPriceBook;
+    private EditText edIdBook, edNameBook, edAuthorBook, edPublishingCompanyBook, edPriceBook, edAmountBook;
     private Spinner spnBookType;
     private Button btnAddBook, btnCancelBook, btnShowBook;
 
@@ -52,6 +52,7 @@ public class Book extends Fragment {
         edAuthorBook = view.findViewById(R.id.edAuthorBook);
         edPublishingCompanyBook = view.findViewById(R.id.edPublishingCompanyBook);
         edPriceBook = view.findViewById(R.id.edPriceBook);
+        edAmountBook = view.findViewById(R.id.edAmountBook);
 
         ArrayAdapter<com.example.myapplication.model.BookType> bookTypeArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, bookTypeDAO.getAllBookType());
         bookTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
@@ -62,22 +63,38 @@ public class Book extends Fragment {
         btnAddBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = edIdBook.getText().toString();
-                String name = edNameBook.getText().toString();
-                String author = edAuthorBook.getText().toString();
-                String publishingCompany = edPublishingCompanyBook.getText().toString();
-                float priceBook = Float.parseFloat(edPriceBook.getText().toString());
+                try {
+                    String id = edIdBook.getText().toString();
+                    String name = edNameBook.getText().toString();
+                    String author = edAuthorBook.getText().toString();
+                    String publishingCompany = edPublishingCompanyBook.getText().toString();
+                    float priceBook = Float.parseFloat(edPriceBook.getText().toString());
+                    int amount = Integer.parseInt(edAmountBook.getText().toString());
 
-                com.example.myapplication.model.BookType bookType = (com.example.myapplication.model.BookType) spnBookType.getSelectedItem();
-                if (bookDAO.insertBook(new com.example.myapplication.model.Book(id, bookType, name, author, publishingCompany, priceBook)))
-                    Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getActivity(), "Thêm thất bại kiểm tra lại mã sách", Toast.LENGTH_SHORT).show();
+                    com.example.myapplication.model.BookType bookType = (com.example.myapplication.model.BookType) spnBookType.getSelectedItem();
+                    if (bookDAO.insertBook(new com.example.myapplication.model.Book(id, bookType, name, author, publishingCompany, priceBook, amount)))
+                        Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getActivity(), "Thêm thất bại kiểm tra lại mã sách", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "Lỗi: " + e.toString(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
 
         btnCancelBook = view.findViewById(R.id.btnCancelBook);
+        btnCancelBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edIdBook.setText("");
+                edNameBook.setText("");
+                edAuthorBook.setText("");
+                edPublishingCompanyBook.setText("");
+                edPriceBook.setText("");
+                edAmountBook.setText("");
+            }
+        });
 
         btnShowBook = view.findViewById(R.id.btnShowBook);
         btnShowBook.setOnClickListener(new View.OnClickListener() {

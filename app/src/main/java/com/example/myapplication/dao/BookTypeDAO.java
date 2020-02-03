@@ -16,9 +16,9 @@ public class BookTypeDAO {
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
     public static final String SQL_BOOKTYPE = "CREATE TABLE BOOKTYPE(ID TEXT PRIMARY KEY NOT NULL, " +
-            "NAME TEXT, " +
+            "NAME TEXT NOT NULL, " +
             "DESCRIBE TEXT, " +
-            "LOCATION TEXT)";
+            "LOCATION INTEGER)";
     public static final String TABLE_NAME = "BOOKTYPE";
     private final String TAG = this.getClass().getSimpleName();
 
@@ -54,7 +54,7 @@ public class BookTypeDAO {
             String id = cursor.getString(0);
             String name = cursor.getString(1);
             String describe = cursor.getString(2);
-            String location = cursor.getString(3);
+            int location = cursor.getInt(3);
             BookType bookType = new BookType(id, name, describe, location);
             bookTypes.add(bookType);
             cursor.moveToNext();

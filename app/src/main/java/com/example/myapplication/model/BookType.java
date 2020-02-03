@@ -6,9 +6,9 @@ public class BookType {
     private String id;
     private String name;
     private String describe;
-    private String location;
+    private int location;
 
-    public BookType(String id, String name, String describe, String location) {
+    public BookType(String id, String name, String describe, int location) {
         this.id = id;
         this.name = name;
         this.describe = describe;
@@ -44,11 +44,11 @@ public class BookType {
         this.describe = describe;
     }
 
-    public String getLocation() {
+    public int getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(int location) {
         this.location = location;
     }
 

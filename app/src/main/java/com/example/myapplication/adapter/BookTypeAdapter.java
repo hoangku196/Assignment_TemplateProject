@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -20,6 +21,8 @@ public class BookTypeAdapter extends BaseAdapter {
 
     private List<BookType> bookTypes;
     private LayoutInflater inflater;
+
+    private BookTypeDAO bookTypeDAO;
 
     private AdapterListBookTypeBinding adapterListBookTypeBinding;
 
@@ -48,8 +51,18 @@ public class BookTypeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             adapterListBookTypeBinding = DataBindingUtil.inflate(inflater, R.layout.adapter_list_book_type, parent, false);
+            bookTypeDAO = new BookTypeDAO(parent.getContext());
 
-            BookType bookType = (BookType) getItem(position);
+            ImageView viewDeleteBookType = adapterListBookTypeBinding.getRoot().findViewById(R.id.viewDeleteBookType);
+
+            final BookType bookType = (BookType) getItem(position);
+
+            viewDeleteBookType.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    bookTypeDAO.deleteBookType(bookType);
+                }
+            });
 
             adapterListBookTypeBinding.setBookType(bookType);
         }

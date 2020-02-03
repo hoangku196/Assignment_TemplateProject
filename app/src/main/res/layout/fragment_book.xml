@@ -63,6 +63,12 @@
         android:layout_height="wrap_content"
         android:hint="Giá bán" />
 
+    <EditText
+        android:id="@+id/edAmountBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Số lượng sách tồn kho" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

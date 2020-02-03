@@ -9,14 +9,29 @@ public class Book {
     private String author;
     private String publishingCompany;
     private float priceBook;
+    private int amount;
 
-    public Book(String id, BookType bookType, String name, String author, String publishingCompany, float priceBook) {
+    public Book(String id, BookType bookType, String name, String author, String publishingCompany, float priceBook, int amount) {
         this.id = id;
         this.bookType = bookType;
         this.name = name;
         this.author = author;
         this.publishingCompany = publishingCompany;
         this.priceBook = priceBook;
+        this.amount = amount;
+    }
+
+    public Book(String id, int amount) {
+        this.id = id;
+        this.amount = amount;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public Book(String id) {

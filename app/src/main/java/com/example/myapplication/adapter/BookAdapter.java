@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 
 import com.example.myapplication.R;
+import com.example.myapplication.dao.BookDAO;
 import com.example.myapplication.databinding.AdapterListBookBinding;
 import com.example.myapplication.model.Book;
 
@@ -18,6 +21,8 @@ public class BookAdapter extends BaseAdapter {
 
     private List<Book> books;
     private LayoutInflater inflater;
+
+    private BookDAO bookDAO;
 
     private AdapterListBookBinding adapterListBookBinding;
 
@@ -42,10 +47,20 @@ public class BookAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, final ViewGroup parent) {
         if (convertView == null) {
+            bookDAO = new BookDAO(parent.getContext());
             adapterListBookBinding = DataBindingUtil.inflate(inflater, R.layout.adapter_list_book, parent, false);
-            Book book = (Book) getItem(position);
+            final Book book = (Book) getItem(position);
+
+            ImageView viewDeleteBook = adapterListBookBinding.getRoot().findViewById(R.id.viewDeleteBook);
+            viewDeleteBook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (bookDAO.deleteBook(book))
+                        Toast.makeText(parent.getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                }
+            });
 
             adapterListBookBinding.setBook(book);
         }
