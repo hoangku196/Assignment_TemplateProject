@@ -41,6 +41,8 @@ public class ListBookType extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        setHasOptionsMenu(true);
+
         View view = inflater.inflate(R.layout.fragment_list_book_type, container, false);
 
         bookTypeDAO = new BookTypeDAO(getActivity());

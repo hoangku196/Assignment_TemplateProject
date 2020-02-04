@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
@@ -52,7 +53,7 @@ public class BillAdapter extends BaseAdapter {
             Bill bill = (Bill) getItem(position);
             adapterListBillBinding.setBill(bill);
 
-            ConstraintLayout navigate = adapterListBillBinding.getRoot().findViewById(R.id.navigate_to_bill_detail);
+            ImageView navigate = adapterListBillBinding.getRoot().findViewById(R.id.viewNavigateToBillDetail);
             navigate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

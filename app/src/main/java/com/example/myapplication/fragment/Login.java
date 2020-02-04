@@ -25,6 +25,8 @@ import com.example.myapplication.dao.UserDAO;
  */
 public class Login extends Fragment {
 
+    private final String FILE_NAME = "USER_FILE";
+
     //UI
     private EditText edUserName, edPassword;
     private CheckBox chkRememberPass;
@@ -56,6 +58,8 @@ public class Login extends Fragment {
             }
         });
 
+        loadUser();
+
         return view;
     }
 
@@ -80,7 +84,7 @@ public class Login extends Fragment {
     }
 
     private void rememberUser(String userName, String password, boolean status) {
-        SharedPreferences pref = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+        SharedPreferences pref = getActivity().getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
 
         if (!status)
@@ -94,4 +98,21 @@ public class Login extends Fragment {
         editor.apply();
     }
 
+    private void loadUser() {
+        Context context = getActivity();
+        SharedPreferences sharedPreferences = null;
+        if (context != null) {
+            sharedPreferences = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        }
+        boolean status = sharedPreferences.getBoolean("REMEMBER", false);
+
+        if (status) {
+            String user = sharedPreferences.getString("USERNAME", "");
+            String password = sharedPreferences.getString("PASSWORD", "");
+
+            edUserName.setText(user);
+            edPassword.setText(password);
+        }
+        chkRememberPass.setChecked(status);
+    }
 }

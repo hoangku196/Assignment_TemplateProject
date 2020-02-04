@@ -74,6 +74,7 @@ public class User extends Fragment {
             }
         });
 
+        btnCancelUser = view.findViewById(R.id.btnCancelUser);
         btnCancelUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,6 +1,7 @@
 package com.example.myapplication.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -75,10 +76,12 @@ public class BillDetail extends Fragment {
         btnPayBillDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
                 for (BillDetails billDetails : billDetailsPreview) {
                     billDetailsDAO.insertBillDetails(billDetails);
                 }
-                Navigation.findNavController(v).navigate(R.id.action_billDetail_to_listBillDetails);
+                bundle.putString("key_idBill", getArguments().getString("key_id"));
+                Navigation.findNavController(v).navigate(R.id.action_billDetail_to_listBillDetails,bundle);
             }
         });
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,9 +11,7 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -20,59 +20,11 @@
             android:id="@+id/imageView3"
             android:layout_width="113dp"
             android:layout_height="113dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvIdBook"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/bookicon" />
 
-        <TextView
-            android:id="@+id/tvIdBook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{Book.id}"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
-
-        <TextView
-            android:id="@+id/tvTypeBook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{Book.bookType.toString()}"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/tvIdBook" />
-
-        <TextView
-            android:id="@+id/tvNameBook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{Book.name}"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/tvTypeBook" />
-
-        <TextView
-            android:id="@+id/tvAuthorBook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{Book.author}"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/tvNameBook" />
-
-        <TextView
-            android:id="@+id/tvPublishingCompanyBook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{Book.publishingCompany}"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/tvAuthorBook" />
-
-        <TextView
-            android:id="@+id/tvPriceBook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.valueOf(Book.priceBook)}"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/tvPublishingCompanyBook" />
 
         <ImageView
             android:id="@+id/viewDeleteBook"
@@ -89,5 +41,35 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.79" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Book.name}"
+            app:layout_constraintBottom_toTopOf="@+id/textView12"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(Book.priceBook)}"
+            app:layout_constraintBottom_toTopOf="@+id/textView19"
+            app:layout_constraintEnd_toEndOf="@+id/textView11"
+            app:layout_constraintStart_toStartOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(Book.amount)}"
+            app:layout_constraintEnd_toEndOf="@+id/textView12"
+            app:layout_constraintStart_toStartOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

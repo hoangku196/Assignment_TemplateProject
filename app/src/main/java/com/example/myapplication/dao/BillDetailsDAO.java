@@ -18,9 +18,9 @@ import java.util.List;
 public class BillDetailsDAO {
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
-    public static final String SQL_BILL_DETAILS = "CREATE TABLE BILLDETAILS(ID TEXT PRIMARY KEY, " +
-            "IDBILL TEXT , " +
-            "IDBOOK TEXT , " +
+    public static final String SQL_BILL_DETAILS = "CREATE TABLE BILLDETAILS(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "IDBILL TEXT NOT NULL, " +
+            "IDBOOK TEXT NOT NULL, " +
             "AMOUNT INTEGER) ";
     public static final String TABLE_NAME = "BILLDETAILS";
     private final String TAG = this.getClass().getSimpleName();
@@ -64,19 +64,22 @@ public class BillDetailsDAO {
         return books;
     }
 
-    public List<BillDetails> getAllBillDetails() {
+    public List<BillDetails> getAllBillDetails(String idBill) {
         List<BillDetails> billDetails = new ArrayList<>();
 
-        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
+        String selection = "IDBILL=?";
+        String[] selectionArgs = new String[]{idBill};
+
+        Cursor cursor = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            String id = cursor.getString(0);
-            String idBill = cursor.getString(1);
-            String idBook = cursor.getString(2);
-            int amount = cursor.getInt(3);
+            String getId = cursor.getString(0);
+            String getIdBill = cursor.getString(1);
+            String getIdBook = cursor.getString(2);
+            int getAmount = cursor.getInt(3);
 
-            BillDetails detail = new BillDetails(id, new Bill(idBill), new Book(idBook), amount);
+            BillDetails detail = new BillDetails(getId, new Bill(getIdBill), new Book(getIdBook), getAmount);
             billDetails.add(detail);
             cursor.moveToNext();
         }

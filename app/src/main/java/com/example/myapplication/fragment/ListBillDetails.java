@@ -43,7 +43,9 @@ public class ListBillDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list_bill_details, container, false);
         billDetailsDAO = new BillDetailsDAO(getContext());
 
-        billDetails = billDetailsDAO.getAllBillDetails();
+        String idBill = getArguments().getString("key_idBill");
+
+        billDetails = billDetailsDAO.getAllBillDetails(idBill);
 
         billDetailAdapter = new BillDetailAdapter(billDetails, getActivity(), TAG);
 

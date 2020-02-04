@@ -29,7 +29,7 @@ import java.util.Calendar;
 public class Bill extends Fragment {
 
     private EditText edIdBill, edDateBill;
-    private Button btnDateBill, btnAddBill, btnCancelBill, btnShowBill;
+    private Button btnDateBill, btnAddBill, btnShowBill;
 
     //DAO
     private BillDAO billDAO;
@@ -77,14 +77,18 @@ public class Bill extends Fragment {
 
                 String id = edIdBill.getText().toString();
                 String date = edDateBill.getText().toString();
-                Bundle bundle = new Bundle();
-                bundle.putString("key_id", id);
-
-                if (billDAO.insertBill(new com.example.myapplication.model.Bill(id, date))) {
-                    Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                } else
-                    Toast.makeText(getActivity(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
-
+                if (id.isEmpty() || date.isEmpty())
+                    Toast.makeText(getActivity(), "Điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                else {
+                    if (date.matches("\\d{1,2}[-|/]\\d{1,2}[-|/]\\d{4}")) {
+                        if (billDAO.insertBill(new com.example.myapplication.model.Bill(id, date))) {
+                            Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getActivity(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Sai định dạng ngày", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 

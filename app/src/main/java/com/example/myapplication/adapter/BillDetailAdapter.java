@@ -62,7 +62,7 @@ public class BillDetailAdapter extends BaseAdapter {
             viewDeleteBillDetail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    BillDetail.billDetailsPreview.remove(position);
+                    BillDetail.billDetailsPreview.remove(billDetails);
                 }
             });
         }
